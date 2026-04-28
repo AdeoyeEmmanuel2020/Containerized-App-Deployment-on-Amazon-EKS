@@ -19,7 +19,7 @@
 
 ## 🎬 Full Architecture Walkthrough & Production Deployment  
 
- **📺 Watch the complete implementation on YouTube:** 
+**📺 Click the image below to watch the complete implementation on YouTube:**
 
 <a href="https://www.youtube.com/watch?v=imz9tSa3WVg" target="_blank">
   <img src="https://img.youtube.com/vi/imz9tSa3WVg/maxresdefault.jpg" 
