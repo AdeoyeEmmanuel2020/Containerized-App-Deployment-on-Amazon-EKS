@@ -1,6 +1,6 @@
 
 ## Enterprise Container Platform on Amazon EKS: Production Orchestration
-----
+
 **Role**: Solution Architect
 
 **Status**: ✅ Architecture Designed, Deployed & Validated
