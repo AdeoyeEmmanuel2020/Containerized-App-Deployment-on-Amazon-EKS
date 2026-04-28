@@ -1,3 +1,24 @@
+
+## Enterprise Container Platform on Amazon EKS: Production Orchestration
+**Role**: Solution Architect
+
+**Status**: ✅ Architecture Designed, Deployed & Validated
+
+### **Project Description**
+
+*Architected and implemented a production-ready container orchestration platform on Amazon EKS, demonstrating end-to-end cloud-native deployment from Docker containerisation to Kubernetes orchestration with AWS managed services integration. Engineered for enterprise scalability, reliability, and cost optimisation with complete lifecycle management*
+
+---
+
+## Architecture Overview
+<img width="1536" height="1024" alt="Architecture" src="https://github.com/user-attachments/assets/46a0cc02-8295-4e69-8b4c-01b3c7fb0192" />
+
+---
+
+**🎬 Architecture Walkthrough & Live Deployment Video**
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/imz9tSa3WVg/0.jpg)](https://www.youtube.com/watch?imz9tSa3WVg)
+
 ## Real-World Scenario: Troubleshooting ImagePullBackOff
 
 ### 🚨 Challenge Encountered
