@@ -1,9 +1,11 @@
 
 ## Enterprise Container Platform on Amazon EKS: Production Orchestration
+----
 **Role**: Solution Architect
 
 **Status**: ✅ Architecture Designed, Deployed & Validated
 
+---
 ### **Project Description**
 
 *Architected and implemented a production-ready container orchestration platform on Amazon EKS, demonstrating end-to-end cloud-native deployment from Docker containerisation to Kubernetes orchestration with AWS managed services integration. Engineered for enterprise scalability, reliability, and cost optimisation with complete lifecycle management*
@@ -62,12 +64,6 @@ This "failure" scenario actually **enhances** the demonstration by showcasing:
 - The importance of understanding AWS service interactions
 - That production systems require robust error handling
 
-## 🔗 Full Documentation & Demo
-📚 Complete Project Documentation: [[Notion Page Link]](https://www.notion.so/Enterprise-Container-Platform-on-Amazon-EKS-Production-Orchestration-2c5afa903f8a80f5b3fee9cb8aa946c0?source=copy_link)
-
-🎥 Video Demonstration: [[Video Demo Link]](https://youtu.be/imz9tSa3WVg?si=orUGleOmmzUTz4ET)
-
-💻 Source Code: [[GitHub Repository Link]](https://github.com/DOTWEB2020/Containerized-App-Deployment-on-Amazon-EKS)
 
 ## **👤** Author
 **Adeoye Emmanuel** - AWS Certified Solutions Architect | AWS Security Solutions Architect | DevSecOps Engineer
