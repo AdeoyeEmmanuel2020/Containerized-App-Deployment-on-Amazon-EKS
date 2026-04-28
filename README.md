@@ -11,14 +11,25 @@
 ---
 
 ## Architecture Overview
-<img width="1000" height="700" alt="Architecture" src="https://github.com/user-attachments/assets/46a0cc02-8295-4e69-8b4c-01b3c7fb0192" />
+<img width="800" height="500" alt="Architecture" src="https://github.com/user-attachments/assets/46a0cc02-8295-4e69-8b4c-01b3c7fb0192" />
 
 ---
 
-**🎬 Architecture Walkthrough & Live Deployment Video**
+## 🎬 Architecture Walkthrough & Live Deployment Video  
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/imz9tSa3WVg/0.jpg)](https://www.youtube.com/watch?imz9tSa3WVg)
+🚀 **Click the picture below to watch the full deployment on YouTube**
 
+<a href="https://www.youtube.com/watch?v=imz9tSa3WVg" target="_blank">
+  <img src="https://img.youtube.com/vi/imz9tSa3WVg/maxresdefault.jpg" 
+       width="800" 
+       height="500" 
+       alt="Complete Kubernetes Deployment on AWS EKS (Production Ready)">
+</a>
+
+----
+
+
+----
 ## Real-World Scenario: Troubleshooting ImagePullBackOff
 
 ### 🚨 Challenge Encountered
