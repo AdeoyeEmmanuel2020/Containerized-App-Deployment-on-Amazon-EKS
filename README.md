@@ -70,7 +70,7 @@ This "failure" scenario actually **enhances** the demonstration by showcasing:
 💻 Source Code: [[GitHub Repository Link]](https://github.com/DOTWEB2020/Containerized-App-Deployment-on-Amazon-EKS)
 
 ## **👤** Author
-**Adeoye Emmanuel** - Solution Architect
+**Adeoye Emmanuel** - AWS Certified Solutions Architect | AWS Security Solutions Architect | DevSecOps Engineer
 
 **Email:** Emmanuelofgrace@gmail.com
 
