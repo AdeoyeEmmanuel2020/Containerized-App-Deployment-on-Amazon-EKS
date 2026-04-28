@@ -11,7 +11,7 @@
 ---
 
 ## Architecture Overview
-<img width="1536" height="1024" alt="Architecture" src="https://github.com/user-attachments/assets/46a0cc02-8295-4e69-8b4c-01b3c7fb0192" />
+<img width="1200" height="1024" alt="Architecture" src="https://github.com/user-attachments/assets/46a0cc02-8295-4e69-8b4c-01b3c7fb0192" />
 
 ---
 
