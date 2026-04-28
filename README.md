@@ -23,8 +23,8 @@
 
 <a href="https://www.youtube.com/watch?v=imz9tSa3WVg" target="_blank">
   <img src="https://img.youtube.com/vi/imz9tSa3WVg/maxresdefault.jpg" 
-       width="800" 
-       height="500" 
+       width="700" 
+       height="400" 
        alt="Complete Kubernetes Deployment on AWS EKS (Production Ready)">
 </a>
 
