@@ -3,7 +3,7 @@
 
 **Role**: Solution Architect
 
-**Status**: ✅ Architecture Designed, Deployed & Validated
+**Status**: Architecture Designed, Deployed & Validated
 
 ---
 ### **Project Description**
@@ -17,9 +17,9 @@
 
 ---
 
-## 🎬 Full Architecture Walkthrough & Production Deployment  
+## Full Architecture Walkthrough & Production Deployment  
 
-**📺 Click the image below to watch the complete implementation on YouTube:**
+**Click the image below to watch the complete implementation on YouTube:**
 
 <a href="https://www.youtube.com/watch?v=imz9tSa3WVg" target="_blank">
   <img src="https://img.youtube.com/vi/imz9tSa3WVg/maxresdefault.jpg" 
@@ -153,7 +153,7 @@
 - **Business Alignment**: Technical decisions tied to business outcomes
 ---
 
-# **📊 Implementation Metrics**
+# **Implementation Metrics**
 
 | **Metric** | **Result** | **Impact** |
 | --- | --- | --- |
@@ -171,7 +171,7 @@
 ----
 ## Real-World Scenario: Troubleshooting ImagePullBackOff
 
-### 🚨 Challenge Encountered
+### Challenge Encountered
 During deployment, Kubernetes reported: `ErrImagePull - Image not found`
 - Pod status: `ImagePullBackOff`
 - Error: Container image unavailable from ECR
@@ -182,13 +182,13 @@ During deployment, Kubernetes reported: `ErrImagePull - Image not found`
 3. **Authentication Validation**: Verified IAM permissions and Docker credentials
 4. **Network Connectivity**: Ensured EKS nodes could reach ECR
 
-### 🛠️ Resolution Steps
+### Resolution Steps
 - Re-authenticated Docker with ECR: `aws ecr get-login-password`
 - Verified image tagging format
 - Re-pushed Docker image to ECR
 - Kubernetes automatically recovered pods (self-healing demonstrated)
 
-### 💡 Key Learning
+### Key Learning
 This "failure" scenario actually **enhances** the demonstration by showcasing:
 - Real-world cloud deployment challenges
 - Professional troubleshooting methodology
@@ -196,15 +196,43 @@ This "failure" scenario actually **enhances** the demonstration by showcasing:
 - That production systems require robust error handling
 
 ----
-## **🏆 Architecture Recognition**
+## ** Architecture Recognition**
 
 *This solution was validated against AWS Well-Architected Framework principles and demonstrates production-ready patterns suitable for enterprise deployment. The complete lifecycle management approach sets a standard for responsible cloud engineering practices.*
 
 
-## **👤** Author
+# Author
 **Adeoye Emmanuel** - AWS Certified Solutions Architect | AWS Security Solutions Architect | DevSecOps Engineer
 
 **Email:** Emmanuelofgrace@gmail.com
 
-💼 LinkedIn: www.linkedin.com/in/emmanuel-adeoye-29187bb7
+ LinkedIn: www.linkedin.com/in/emmanuel-adeoye-29187bb7
 
+ -------
+
+# License
+This project is licensed under the MIT License
+```bash
+
+MIT License
+
+Copyright (c) 2025 [Adeoye Emmanuel Eniola]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including, without limitation, the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
