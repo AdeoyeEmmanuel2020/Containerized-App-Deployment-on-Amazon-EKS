@@ -1,4 +1,4 @@
-FROM python:3.12.12-slim
+FROM python:3.15.2-slim
 
 LABEL org.opencontainers.image.title="EKS reference service" \
       org.opencontainers.image.description="Hardened stateless workload for Kubernetes assurance experiments" \
