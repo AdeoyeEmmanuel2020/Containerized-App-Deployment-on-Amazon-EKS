@@ -14,21 +14,57 @@ The working hypothesis is that declarative workload controls, immutable containe
 
 ```mermaid
 flowchart LR
-    U[Client] --> L[External load balancer or ingress]
-    L --> S[ClusterIP Service]
-    S --> P1[Pod]
-    S --> P2[Pod]
-    S --> P3[Pod]
-    H[Horizontal Pod Autoscaler] --> D[Deployment]
-    D --> P1
-    D --> P2
-    D --> P3
-    R[Amazon ECR] --> P1
-    R --> P2
-    R --> P3
-    O[Metrics and logs] <-- P1
-    O <-- P2
-    O <-- P3
+    classDef actor fill:#F8FAFC,stroke:#334155,stroke-width:1.5px,color:#0F172A
+    classDef delivery fill:#EFF6FF,stroke:#2563EB,stroke-width:1.5px,color:#1E3A8A
+    classDef aws fill:#FFF7ED,stroke:#EA580C,stroke-width:1.5px,color:#7C2D12
+    classDef k8s fill:#EEF2FF,stroke:#4F46E5,stroke-width:1.5px,color:#312E81
+    classDef workload fill:#ECFDF5,stroke:#059669,stroke-width:1.5px,color:#064E3B
+    classDef control fill:#FDF4FF,stroke:#A21CAF,stroke-width:1.5px,color:#701A75
+    classDef observe fill:#F0FDFA,stroke:#0F766E,stroke-width:1.5px,color:#134E4A
+
+    DEV[Engineer]:::actor
+    USER[Client]:::actor
+
+    subgraph DELIVERY[Secure software delivery]
+        direction TB
+        GH[GitHub pull request]:::delivery
+        CI[Tests + Docker build<br/>Trivy policy gates]:::delivery
+        ECR[Amazon ECR<br/>immutable image digest]:::aws
+        GH --> CI --> ECR
+    end
+
+    subgraph AWS[AWS account]
+        direction LR
+        EDGE[Ingress / AWS Load Balancer<br/>TLS and routing - environment overlay]:::aws
+
+        subgraph EKS[Amazon EKS cluster]
+            direction LR
+            SVC[ClusterIP Service<br/>ready-endpoint routing]:::k8s
+
+            subgraph WORKLOAD[eks-reference namespace]
+                direction TB
+                P1[Pod · zone A]:::workload
+                P2[Pod · zone B]:::workload
+                P3[Pod · zone C]:::workload
+            end
+
+            HPA[Horizontal Pod Autoscaler<br/>3-10 replicas]:::control
+            PDB[PodDisruptionBudget<br/>minimum 2 available]:::control
+            NP[NetworkPolicy<br/>default-deny ingress]:::control
+            OBS[Metrics · logs · events]:::observe
+
+            EDGE --> SVC
+            SVC --> P1 & P2 & P3
+            HPA -. scales .-> WORKLOAD
+            PDB -. protects .-> WORKLOAD
+            NP -. constrains .-> WORKLOAD
+            WORKLOAD --> OBS
+        end
+    end
+
+    DEV --> GH
+    ECR -. image pull by digest .-> WORKLOAD
+    USER --> EDGE
 ```
 
 The Kubernetes layer uses three replicas, rolling updates, topology spread, readiness/liveness/startup probes, requests and limits, a PodDisruptionBudget, autoscaling, a dedicated service account, default-deny ingress, explicit application ingress, and a restricted pod security context.
