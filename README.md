@@ -13,7 +13,7 @@ The working hypothesis is that declarative workload controls, immutable containe
 ## Architecture
 
 ```mermaid
-flowchart TB
+flowchart LR
     classDef actor fill:#F8FAFC,stroke:#334155,stroke-width:1.5px,color:#0F172A
     classDef delivery fill:#EFF6FF,stroke:#2563EB,stroke-width:1.5px,color:#1E3A8A
     classDef aws fill:#FFF7ED,stroke:#EA580C,stroke-width:1.5px,color:#7C2D12
@@ -26,7 +26,7 @@ flowchart TB
     USER[Client]:::actor
 
     subgraph DELIVERY[Secure software delivery]
-        direction LR
+        direction TB
         GH[GitHub pull request]:::delivery
         CI[Tests + Docker build<br/>Trivy policy gates]:::delivery
         ECR[Amazon ECR<br/>immutable image digest]:::aws
@@ -34,15 +34,15 @@ flowchart TB
     end
 
     subgraph AWS[AWS account]
-        direction TB
+        direction LR
         EDGE[Ingress / AWS Load Balancer<br/>TLS and routing - environment overlay]:::aws
 
         subgraph EKS[Amazon EKS cluster]
-            direction TB
+            direction LR
             SVC[ClusterIP Service<br/>ready-endpoint routing]:::k8s
 
             subgraph WORKLOAD[eks-reference namespace]
-                direction LR
+                direction TB
                 P1[Pod · zone A]:::workload
                 P2[Pod · zone B]:::workload
                 P3[Pod · zone C]:::workload
