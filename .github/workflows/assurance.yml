@@ -60,7 +60,8 @@ jobs:
         run: kubectl kustomize k8s/base > rendered-manifests.yaml
 
       - name: Assert immutable workload image reference
-        run: grep -E 'image: .+@sha256:[a-f0-9]{64}$' k8s/base/deployment.yaml
+        run: |
+          grep -E 'image: .+@sha256:[a-f0-9]{64}$' k8s/base/deployment.yaml
 
       - name: Assert restricted workload controls
         run: |
