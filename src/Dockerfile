@@ -10,6 +10,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PORT=8080
 
 WORKDIR /app
+RUN apt-get update \
+    && apt-get upgrade --yes \
+    && rm -rf /var/lib/apt/lists/*
 RUN groupadd --gid 10001 app && useradd --uid 10001 --gid app --no-create-home app
 COPY requirements.txt ./
 RUN python -m pip install --no-cache-dir --requirement requirements.txt
