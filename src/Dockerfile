@@ -1,62 +1,24 @@
-# ==============================================
-# ARCHITECT'S DOCKERFILE - EKS DEMO
-# ==============================================
+FROM python:3.12.12-slim
 
-# Use official Python slim image for small size + security
-FROM python:3.9-slim
+LABEL org.opencontainers.image.title="EKS reference service" \
+      org.opencontainers.image.description="Hardened stateless workload for Kubernetes assurance experiments" \
+      org.opencontainers.image.source="https://github.com/AdeoyeEmmanuel2020/Containerized-App-Deployment-on-Amazon-EKS"
 
-# Set maintainer label (best practice)
-LABEL maintainer="solution-architect@demo.com"
-LABEL version="1.0"
-LABEL description="Architect's EKS demonstration application"
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PORT=8080
 
-# Set working directory inside container
 WORKDIR /app
+RUN groupadd --gid 10001 app && useradd --uid 10001 --gid app --no-create-home app
+COPY requirements.txt ./
+RUN python -m pip install --no-cache-dir --requirement requirements.txt
+COPY --chown=10001:10001 app.py ./
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-ENV PORT=8080
-ENV ENVIRONMENT=production
-
-# Install system dependencies
-# curl for health checks, procps for debugging
-RUN apt-get update && apt-get install -y \
-    curl \
-    procps \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy requirements first (for better caching)
-COPY requirements.txt .
-
-# Install Python dependencies
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
-
-# Copy application code
-COPY app.py .
-
-# Create non-root user for security (best practice)
-RUN useradd -m -u 1000 appuser && \
-    chown -R appuser:appuser /app
-
-# Switch to non-root user
-USER appuser
-
-# Expose the port the app runs on
+USER 10001:10001
 EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+  CMD ["python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health/live', timeout=2)"]
 
-# Health check (important for Kubernetes)
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8080/health || exit 1
-
-# Command to run the application
-CMD ["python", "app.py"]
-
-# ==============================================
-# DOCKERFILE ARCHITECTURE NOTES:
-# 1. Multi-stage builds skipped for simplicity
-# 2. Security: Non-root user, no cache, slim image
-# 3. Production-ready: Health checks, env vars
-# 4. EKS optimized: Small size, proper ports
-# ==============================================
+ENTRYPOINT ["gunicorn"]
+CMD ["--bind=0.0.0.0:8080", "--workers=2", "--threads=2", "--timeout=30", "--access-logfile=-", "--error-logfile=-", "app:app"]
