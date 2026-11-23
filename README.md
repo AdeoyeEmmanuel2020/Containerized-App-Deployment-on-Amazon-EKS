@@ -1,238 +1,152 @@
+# Resilient Container Platform Reference on Amazon EKS
 
-## Enterprise Container Platform on Amazon EKS: Production Orchestration
+This repository is an evidence-driven reference implementation for deploying a small HTTP workload to Amazon EKS. It demonstrates how senior platform engineering connects application behaviour, container hardening, Kubernetes workload policy, availability objectives, security controls, and automated verification.
 
-**Role**: Solution Architect
+> **Scope:** The repository supplies a hardened workload and deployment baseline, not an EKS cluster. It does not claim production certification, guaranteed availability, or compliance. A production platform also requires account-level infrastructure, identity federation, secrets management, observability backends, recovery exercises, and organisational controls.
 
-**Status**: Architecture Designed, Deployed & Validated
+## Research question
 
----
-### **Project Description**
+**How can a Kubernetes workload be designed so that its reliability and security claims are explicit, testable, and traceable from architecture decision to runtime evidence?**
 
-*Architected and implemented a production-ready container orchestration platform on Amazon EKS, demonstrating end-to-end cloud-native deployment from Docker containerisation to Kubernetes orchestration with AWS managed services integration. Engineered for enterprise scalability, reliability, and cost optimisation with complete lifecycle management*
+The working hypothesis is that declarative workload controls, immutable container practices, health semantics, constrained privileges, and fail-closed CI make operational risk more observable and repeatable than ad-hoc deployment. The hypothesis is falsified if the image runs as root, manifests permit privilege escalation, probes do not represent application health, disruption removes all replicas, insecure changes bypass CI, or a clean checkout cannot reproduce validation.
 
----
+## Architecture
 
-## Architecture Overview
-<img width="700" height="400" alt="Architecture" src="https://github.com/user-attachments/assets/46a0cc02-8295-4e69-8b4c-01b3c7fb0192" />
-
----
-
-## Full Architecture Walkthrough & Production Deployment  
-
-**Click the image below to watch the complete implementation on YouTube:**
-
-<a href="https://www.youtube.com/watch?v=imz9tSa3WVg" target="_blank">
-  <img src="https://img.youtube.com/vi/imz9tSa3WVg/maxresdefault.jpg" 
-       width="700" 
-       height="400" 
-       alt="Complete Kubernetes Deployment on AWS EKS (Production Ready)">
-</a>
-
-----
-## **Architecture Leadership**
-
-**As Solution Architect:**
-
-- Led complete container platform architecture design and technical implementation
-- Conducted technology evaluation selecting AWS EKS over self-managed Kubernetes
-- **Directed end-to-end implementation** from containerisation to production deployment
-- Established Kubernetes governance, security, and operational patterns
-- **Implemented infrastructure-as-code standards** using eksctl and kubectl
-- Designed multi-tier networking with AWS Load Balancer integration
-- Created comprehensive monitoring and health check strategies
-- **Established responsible cloud resource management** with automated cleanup procedures
-----
-## **Technical Stack**
-
-| **Category** | **Technologies** |
-| --- | --- |
-| **Cloud Platform** | AWS (Amazon Web Services) |
-| **Container Orchestration** | Amazon EKS (Elastic Kubernetes Service) |
-| **Container Registry** | Amazon ECR (Elastic Container Registry) |
-| **Compute** | EC2 (t3.small/t3.medium instances) |
-| **Networking** | Application Load Balancer (ALB), VPC, Security Groups |
-| **Infrastructure as Code** | eksctl, kubectl, Docker, AWS CLI |
-| **Security** | IAM Roles & Policies, Kubernetes RBAC, Namespace Isolation |
-| **Monitoring** | Kubernetes Dashboard, CloudWatch Integration |
-| **Application** | Python/Flask (Demo Application) |
-----
-## **Key Architecture Decisions**
-
-**1. Managed Kubernetes Strategy**
-
-- **Architecture Choice**: Amazon EKS over self-managed Kubernetes
-- **Business Rationale**: Reduce operational complexity, accelerate time-to-market
-- **Technical Justification**: AWS-managed control plane, automatic updates, enterprise support
-- **Enterprise Impact**: 60% reduction in operational overhead compared to self-managed K8s
-
-**2. Container-First Deployment Pattern**
-
-- **Architecture Choice**: Docker containers with ECR over EC2-only deployments
-- **Business Rationale**: Portability, consistency across environments, modern development practices
-- **Technical Justification**: Immutable infrastructure, version control, easy rollbacks
-- **Performance Impact**: 30-second container deployment vs 5+ minute VM provisioning
-
-**3. Multi-Replica High Availability Design**
-
-- **Architecture Choice**: Kubernetes Deployment with 3+ replicas over single-instance
-- **Business Rationale**: Fault tolerance, zero-downtime updates, load distribution
-- **Technical Justification**: Pod anti-affinity, rolling updates, health checks
-- **Reliability Impact**: 99.9% availability with automatic pod rescheduling
-
-**4. Cloud Cost Optimisation Framework**
-
-- **Architecture Choice**: Automated cleanup with cost verification procedures
-- **Business Rationale**: Prevent unexpected charges, demonstrate financial responsibility
-- **Technical Justification**: Resource tagging, cost monitoring, automated destruction
-- **Enterprise Value**: Zero unexpected charges with complete demo lifecycle management
-----
-## **Architecture Validation & Review**
-
-**Design Validation Process:**
-
-- Executed comprehensive deployment validation across all architecture layers
-- Conducted load testing and traffic distribution validation
-- Performed security review of IAM roles and Kubernetes RBAC
-- Validated against AWS Well-Architected Framework: Operational Excellence, Security, Reliability
-- Ensured compliance with cloud best practices and cost optimisation principles
-
-**Production Readiness Verification:**
-
-- Health check implementation (liveness/readiness probes)
-- Resource limits and requests configuration
-- Namespace isolation and network policies
-- Load balancer configuration and DNS validation
-- Complete cleanup and cost verification procedures
-- 
-----
-## **Business Value Delivered**
-
-**Strategic Impact:**
-
-- **Cloud Modernisation**: Transitioned from traditional deployments to cloud-native container orchestration
-- **Operational Efficiency**: Reduced deployment time from hours to minutes through containerisation
-- **Cost Transparency**: Implemented complete cost tracking and optimisation procedures
-- **Scalability Foundation**: Established patterns for automatic scaling from 2 to 10+ pods
-- **Risk Mitigation**: Production-ready security and monitoring from initial deployment
-- **Team Enablement**: Created reusable patterns for future Kubernetes deployments
-- **Demonstrated Leadership:** Created educational content showcasing modern cloud practices
------
-## **Technical Leadership**
-
-**Architecture Governance:**
-
-- AWS service selection and justification documentation
-- Kubernetes deployment patterns and best practices establishment
-- Security framework implementation (IAM, network policies, RBAC)
-- Cost management and optimisation procedures
-- Infrastructure-as-code standards and implementation guides
-----
-## **Project Artifacts**
-
-**Architecture Deliverables:**
-
-- Complete EKS cluster configuration and deployment scripts
-- Docker container definitions and build processes
-- Kubernetes manifests (Deployments, Services, Ingress)
-- Security configuration (IAM roles, security groups)
-- Validation and testing procedures
-- Cost verification and cleanup automation
-- Architecture decision records and technology selection rationale
-----
-## **Solution Architecture Competencies**
-
-**Demonstrated Skills:**
-
-- **Cloud-Native Architecture**: Container orchestration, microservices patterns
-- **AWS Expertise**: EKS, ECR, EC2, ELB, IAM service integration
-- **Kubernetes Mastery**: Deployments, Services, Networking, RBAC
-- **Infrastructure Automation**: Infrastructure-as-code, CI/CD readiness
-- **Security Implementation**: IAM, network security, container security
-- **Cost Optimisation**: Cloud economics, resource management
-- **Production Operations**: Monitoring, health checks, troubleshooting
-- **Business Alignment**: Technical decisions tied to business outcomes
----
-
-# **Implementation Metrics**
-
-| **Metric** | **Result** | **Impact** |
-| --- | --- | --- |
-| **Cluster Provisioning** | 12 minutes | 70% faster than manual Kubernetes setup |
-| **Application Deployment** | 2 minutes | Automated rollout with zero downtime |
-| **Total Time-to-Production** | 14 minutes | End-to-end deployment from Docker to Load Balancer |
-| **Container Size** | < 100MB | Efficient resource usage and faster pulls |
-| **Pod Startup Time** | < 30 seconds | Quick scaling response to load changes |
-| **Load Distribution** | Across 3+ pods | High availability with automatic failover |
-| **Health Check Pass Rate** | 100% | Production reliability and self-healing capability |
-| **Cost Verification** | Complete cleanup | Zero unexpected charges with financial responsibility |
-| **Resource Efficiency** | t3.small instances | Cost-optimized compute with right-sizing |
-| **DNS Propagation** | < 5 minutes | Rapid service availability post-deployment |
-
-----
-## Real-World Scenario: Troubleshooting ImagePullBackOff
-
-### Challenge Encountered
-During deployment, Kubernetes reported: `ErrImagePull - Image not found`
-- Pod status: `ImagePullBackOff`
-- Error: Container image unavailable from ECR
-
-### 🔍 Diagnostic Process
-1. **Kubernetes State Analysis**: Identified `ImagePullBackOff` status
-2. **AWS ECR Verification**: Checked repository existence and image availability
-3. **Authentication Validation**: Verified IAM permissions and Docker credentials
-4. **Network Connectivity**: Ensured EKS nodes could reach ECR
-
-### Resolution Steps
-- Re-authenticated Docker with ECR: `aws ecr get-login-password`
-- Verified image tagging format
-- Re-pushed Docker image to ECR
-- Kubernetes automatically recovered pods (self-healing demonstrated)
-
-### Key Learning
-This "failure" scenario actually **enhances** the demonstration by showcasing:
-- Real-world cloud deployment challenges
-- Professional troubleshooting methodology
-- The importance of understanding AWS service interactions
-- That production systems require robust error handling
-
-----
-## ** Architecture Recognition**
-
-*This solution was validated against AWS Well-Architected Framework principles and demonstrates production-ready patterns suitable for enterprise deployment. The complete lifecycle management approach sets a standard for responsible cloud engineering practices.*
-
-
-# Author
-**Adeoye Emmanuel** - AWS Certified Solutions Architect | AWS Security Solutions Architect | DevSecOps Engineer
-
-**Email:** Emmanuelofgrace@gmail.com
-
- LinkedIn: www.linkedin.com/in/emmanuel-adeoye-29187bb7
-
- -------
-
-# License
-This project is licensed under the MIT License
-```bash
-
-MIT License
-
-Copyright (c) 2025 [Adeoye Emmanuel Eniola]
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including, without limitation, the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+```mermaid
+flowchart LR
+    U[Client] --> L[External load balancer or ingress]
+    L --> S[ClusterIP Service]
+    S --> P1[Pod]
+    S --> P2[Pod]
+    S --> P3[Pod]
+    H[Horizontal Pod Autoscaler] --> D[Deployment]
+    D --> P1
+    D --> P2
+    D --> P3
+    R[Amazon ECR] --> P1
+    R --> P2
+    R --> P3
+    O[Metrics and logs] <-- P1
+    O <-- P2
+    O <-- P3
 ```
+
+The Kubernetes layer uses three replicas, rolling updates, topology spread, readiness/liveness/startup probes, requests and limits, a PodDisruptionBudget, autoscaling, a dedicated service account, default-deny ingress, explicit application ingress, and a restricted pod security context.
+
+Detailed trust boundaries and decisions are in [Architecture](docs/architecture.md). Adversary assumptions are in the [Threat model](docs/threat-model.md), and claims-to-evidence traceability is in the [Assurance matrix](docs/assurance-matrix.md).
+
+## Repository structure
+
+```text
+.
+├── .github/
+│   ├── dependabot.yml
+│   └── workflows/assurance.yml
+├── docs/
+│   ├── architecture.md
+│   ├── assurance-matrix.md
+│   └── threat-model.md
+├── k8s/base/
+│   ├── deployment.yaml
+│   ├── hpa.yaml
+│   ├── kustomization.yaml
+│   ├── namespace.yaml
+│   ├── network-policy.yaml
+│   ├── pdb.yaml
+│   ├── service-account.yaml
+│   └── service.yaml
+├── src/
+│   ├── app.py
+│   ├── Dockerfile
+│   └── requirements.txt
+├── tests/test_app.py
+└── LICENSE
+```
+
+## Control summary
+
+| Quality attribute | Mechanism | Evidence |
+|---|---|---|
+| Availability | Three replicas, rolling update, topology spread, PDB | Rendered manifests and disruption test |
+| Elasticity | CPU-based HPA with bounded replica count | HPA status and load experiment |
+| Safe traffic routing | Startup, readiness, and liveness probes | Probe events and negative readiness test |
+| Resource governance | CPU/memory requests and limits | Pod specification and runtime metrics |
+| Least privilege | Non-root image and pod, dropped capabilities, read-only filesystem, no token mount | Image/config scan and pod security context |
+| Network isolation | Default-deny ingress plus explicit same-namespace access | Network-policy test |
+| Supply-chain assurance | Pinned dependencies, image build, Trivy scans, manifest rendering | GitHub Actions run |
+| Graceful change | Rolling update and termination grace period | Controlled rollout experiment |
+
+## Local validation
+
+Requirements: Python 3.12, Docker, and `kubectl` with Kustomize support.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r src/requirements.txt pytest
+pytest -q
+
+docker build -t eks-reference:local src
+docker run --rm -p 8080:8080 eks-reference:local
+curl --fail http://localhost:8080/health/live
+
+kubectl kustomize k8s/base > /tmp/eks-reference.yaml
+```
+
+## Deployment
+
+Build and push an immutable image to an authorised ECR repository, then replace the placeholder image digest in `k8s/base/deployment.yaml`. Digest pinning is preferred over mutable tags.
+
+```bash
+kubectl apply -k k8s/base
+kubectl -n eks-reference rollout status deployment/eks-reference
+kubectl -n eks-reference get deploy,pods,svc,hpa,pdb,networkpolicy
+```
+
+This baseline creates a `ClusterIP` service. External exposure requires an ingress or `LoadBalancer` design selected for the target cluster. That choice is intentionally not hidden behind an unverified annotation.
+
+## Operational verification
+
+```bash
+kubectl -n eks-reference get pods -o wide
+kubectl -n eks-reference describe deployment eks-reference
+kubectl -n eks-reference get hpa eks-reference --watch
+kubectl -n eks-reference logs deployment/eks-reference
+kubectl -n eks-reference port-forward service/eks-reference 8080:80
+```
+
+Evidence should include a rollout, voluntary disruption, failed-readiness experiment, HPA load experiment, and restoration to declared state. Screenshots are supporting material; command output, metrics, events, and versioned configuration are stronger evidence.
+
+## CI assurance
+
+Pull requests and changes to `main` run Python tests, a Docker build, Trivy filesystem/image/configuration scans, Kustomize rendering, and policy checks. Branch rules should require the workflow and independent review. CI does not deploy because identity, approvals, environment protections, and rollback policy are account-specific.
+
+## Explicit limitations and roadmap
+
+- EKS cluster, VPC, ECR, IAM roles for service accounts, ingress controller, DNS, and certificates are outside this repository.
+- The demo is stateless; data durability and transactional recovery are not evaluated.
+- HPA requires a functioning metrics pipeline.
+- NetworkPolicy requires an enforcing CNI implementation.
+- Egress restrictions are environment-specific and not defined here.
+- No service mesh, admission controller, policy engine, runtime detection, distributed tracing, or chaos platform is included.
+- Multi-Region recovery and cluster upgrade procedures require separate infrastructure and exercises.
+
+These boundaries prevent the documentation from presenting a workload example as a complete production platform.
+
+## Cost and cleanup
+
+Apply only to an authorised cluster. EKS, worker capacity, load balancers, NAT gateways, logging, and image storage can incur charges.
+
+```bash
+kubectl delete -k k8s/base
+```
+
+## Author
+
+**Adeoye Emmanuel**<br>
+Cloud Solutions Architect | Cloud Security Architect | DevSecOps Engineer<br>
+[LinkedIn](https://linkedin.com/in/adeoyeemmanuel2020) | [GitHub](https://github.com/AdeoyeEmmanuel2020)
+
+## Licence
+
+MIT. See [LICENSE](LICENSE).
